@@ -1,0 +1,5 @@
+# 4 vols ; utiliser avec --load 2, 5, 10 pour multiplier les evenements
+0 ; A ; FLIGHT_DELAY ; flight=TU701,delay=20
+0 ; A ; FLIGHT_DELAY ; flight=TU702,delay=5
+0 ; A ; FLIGHT_DELAY ; flight=TU703,delay=15
+0 ; A ; FLIGHT_DELAY ; flight=TU704,delay=10

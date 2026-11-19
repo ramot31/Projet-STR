@@ -1,0 +1,11 @@
+# t_s ; noeud_cible ; type ; payload      (1 minute simulee = 1 seconde reelle)
+# Modifier les valeurs ici, ou avec --set (ex: --set TU701.delay=25 --set queue=150) : aucune recompilation.
+# 10h06 : G12 devient indisponible          (t=0)
+# 10h07 : file de securite de 120 personnes (t=1)
+# 10h08 : le retard TU701 declenche la prediction IA avec tout le contexte, puis la decision (t=2)
+0 ; A ; GATE_UNAVAILABLE   ; gate=G12
+1 ; P ; QUEUE_UPDATE       ; queue=120
+2 ; A ; FLIGHT_DELAY       ; flight=TU701,delay=20
+# evenements optionnels (decommenter pour la demo etendue) :
+# 1 ; P ; BUS_BREAKDOWN     ; buses=4
+# 1 ; P ; SECURITY_SLOWDOWN ; factor=2

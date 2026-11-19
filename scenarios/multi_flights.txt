@@ -1,0 +1,4 @@
+# 3 vols en meme temps, envoyes volontairement dans l'ordre inverse du risque (TU702 d'abord)
+0 ; A ; FLIGHT_DELAY ; flight=TU702,delay=5
+0 ; A ; FLIGHT_DELAY ; flight=TU703,delay=15
+0 ; A ; FLIGHT_DELAY ; flight=TU701,delay=20
