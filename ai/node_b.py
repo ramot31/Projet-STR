@@ -12,6 +12,8 @@ Flux :
 
 B ne répond jamais avec un risque inventé : en cas d'erreur (champ obligatoire absent,
 modèle illisible), il n'envoie rien et le nœud C passe en mode dégradé après son délai.
+Le champ de protocole delay est converti en delay_min ; les autres variables doivent
+utiliser les noms du modèle.
 
 Usage :  python node_b.py [--port 5002] [--c-port 5003]
 Variable d'environnement : AIRPORT_HOST (défaut 127.0.0.1), comme dans net.c.
@@ -47,7 +49,8 @@ FLIGHTS = {
 # est remplacé par la valeur par défaut du modèle, avec un avertissement.
 CONTEXT = {}
 CONTEXT_LOCK = threading.Lock()
-CONTEXT_KEYS = {"security_wait_min", "buses_available", "weather", "rush_hour", "peak_hour"}
+CONTEXT_KEYS = {"security_wait_min", "buses_available", "weather", "peak_hour"}
+CONTEXT_PROTOCOL_KEYS = {"queue", "factor", "slowdown", "flight", "src_ts"}
 
 _ids = itertools.count(1)
 _C_PORT = PORT_NODE_C
@@ -79,6 +82,9 @@ def send(port, msg_type, payload):
 
 def update_context(fields):
     """Mémorise le contexte au sol reçu (file de sécurité, bus, météo, heure de pointe)."""
+    unknown = set(fields) - CONTEXT_KEYS - CONTEXT_PROTOCOL_KEYS
+    if unknown:
+        raise ValueError(f"Champs de contexte inconnus : {', '.join(sorted(unknown))}")
     updates = {k: v for k, v in fields.items() if k in CONTEXT_KEYS}
     if "queue" in fields and "security_wait_min" not in updates:
         # attente = personnes x 0,1 min x facteur de ralentissement (documents de M1)
@@ -101,8 +107,13 @@ def on_flight_delay(fields):
         features["scheduled_buffer_min"] = info["next"] - info["sched"]
     with CONTEXT_LOCK:
         features.update(CONTEXT)
+    received = {k: v for k, v in fields.items() if k not in ("flight", "src_ts")}
+    if "delay" in received:
+        if "delay_min" in received:
+            raise ValueError("FLIGHT_DELAY contient à la fois delay et delay_min")
+        received["delay_min"] = received.pop("delay")
     # les valeurs reçues dans le message l'emportent sur le reste
-    features.update({k: v for k, v in fields.items() if k not in ("flight", "src_ts")})
+    features.update(received)
 
     start = time.perf_counter()
     risk = predict(features)["risk"]

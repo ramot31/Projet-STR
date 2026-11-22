@@ -5,15 +5,11 @@ Charge model/risk_model.joblib (exporté par le notebook) et expose :
 
     predict(features: dict) -> {"risk": float}      # probabilité entre 0 et 1
 
-Les noms d'entrée suivent le contrat de M1 (ai_features_t dans types.h) ET les noms du
-modèle. Une petite conversion est faite ici :
-
-    nb_connecting -> connecting_pax        rush_hour -> peak_hour        delay -> delay_min
-    time_left_min + delay_min -> scheduled_buffer_min
-    aircraft_type : 0/1/2 -> small/medium/large       weather : 0/1/2 -> normal/rain/strong_wind
+Les noms d'entrée sont ceux des variables du modèle ; les noms inconnus sont refusés.
+Les codes aircraft_type 0/1/2 et weather 0/1/2 sont convertis en libellés.
 
 Règles de sécurité :
-- delay_min et scheduled_buffer_min (ou time_left_min) sont OBLIGATOIRES : sans eux, la
+- delay_min et scheduled_buffer_min sont OBLIGATOIRES : sans eux, la
   fonction lève ValueError. Le nœud B ne répond alors pas, et C passe en mode dégradé
   (règle de repli) au lieu de recevoir un risque faux.
 - Les autres champs manquants sont remplacés par des valeurs par défaut, avec un
@@ -32,7 +28,6 @@ logger = logging.getLogger("airport.risk")
 AIRCRAFT_CODES = {0: "small", 1: "medium", 2: "large"}        # aircraft_t (types.h)
 WEATHER_CODES = {0: "normal", 1: "rain", 2: "strong_wind"}    # weather_t (types.h)
 CATEGORICAL = {"aircraft_type": AIRCRAFT_CODES, "weather": WEATHER_CODES}
-RENAME = {"nb_connecting": "connecting_pax", "rush_hour": "peak_hour", "delay": "delay_min"}
 REQUIRED = ("delay_min", "scheduled_buffer_min")
 
 _MODEL = None
@@ -51,17 +46,7 @@ def _is_missing(value):
 
 
 def _to_model_inputs(features):
-    converted = {}
-    for key, value in features.items():
-        name = RENAME.get(key, key)
-        if name in converted:
-            raise ValueError(f"Clé en double après conversion : {name}")
-        converted[name] = value
-    # time_left_min (contrat M1) = scheduled_buffer_min - delay_min
-    if "time_left_min" in converted:
-        time_left = converted.pop("time_left_min")
-        if _is_missing(converted.get("scheduled_buffer_min")) and not _is_missing(converted.get("delay_min")):
-            converted["scheduled_buffer_min"] = float(time_left) + float(converted["delay_min"])
+    converted = features.copy()
     # codes numériques -> libellés
     for col, codes in CATEGORICAL.items():
         value = converted.get(col)
@@ -74,6 +59,9 @@ def _to_model_inputs(features):
 
 def predict(features: dict) -> dict:
     model = load_model()
+    unknown = set(features) - set(model.risk_raw_columns_)
+    if unknown:
+        raise ValueError(f"Variables inconnues pour le modèle : {', '.join(sorted(unknown))}")
     given = _to_model_inputs(features)
 
     absent = [c for c in REQUIRED if _is_missing(given.get(c))]

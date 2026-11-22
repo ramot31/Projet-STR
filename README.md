@@ -41,6 +41,10 @@ python -c "import joblib; model = joblib.load('model/risk_model.joblib'); print(
 La commande affiche les 9 colonnes attendues. Pour consulter les valeurs de remplacement
 utilisées lorsque des champs sont absents, afficher également `model.risk_defaults_`.
 
+`predict` accepte uniquement les noms des variables du modèle et refuse les noms
+inconnus. Dans les messages `FLIGHT_DELAY`, le champ de protocole `delay` reste
+accepté par le nœud B et est converti en `delay_min` avant la prédiction.
+
 ### Installer les dépendances
 
 Pour lancer le nœud B avec le modèle déjà entraîné, installer les dépendances avec :
