@@ -1,0 +1,3 @@
+policy,misses,order
+fixed,0,TU701>TU702>TU703
+ai_guided,0,TU701>TU703>TU702
