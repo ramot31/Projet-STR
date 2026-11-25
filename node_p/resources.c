@@ -53,7 +53,8 @@ static struct timespec deadline_after_ms(int ms) {
 
 static void pool_init(pool_t *p, int n) {
     pthread_mutexattr_t a; pthread_mutexattr_init(&a);
-#ifdef PTHREAD_PRIO_INHERIT
+    /* glibc declare PTHREAD_PRIO_INHERIT en enum : seule la macro d'option POSIX est testable. */
+#if defined(_POSIX_THREAD_PRIO_INHERIT) && _POSIX_THREAD_PRIO_INHERIT > 0
     pthread_mutexattr_setprotocol(&a, PTHREAD_PRIO_INHERIT);
 #endif
     pthread_mutex_init(&p->mu, &a); pthread_mutexattr_destroy(&a);
