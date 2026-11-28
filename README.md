@@ -8,6 +8,7 @@ Gestion intelligente des correspondances.
 - node_c/    : decision + ordonnanceur (M5)
 - node_p/    : passagers, files, bus (M4)
 - scheduler/ : simulateur RM/DM/EDF (M5)
+- rt/        : threads POSIX, taches periodiques, priorites SCHED_FIFO guidees par l'IA (M3) - voir docs/MEMBER3_RT.md
 - ai/ data/  : entrainement, jeu de donnees (M2)
 - scenarios/ : scenarios de demo et de charge (M1)
 - tests/     : tests unitaires et de course critique

@@ -1,0 +1,4 @@
+policy,sched,order,flight,risk,level,source,fifo_prio,nice,gate,bus,detect_ms,risk_ms,dispatch_ms,gate_ms,notify_ms,after_decision_ms
+fixed,nice,1,TU702,0.20,FAIBLE,IA,19,2,G12,1,0.122,7.039,31.167,66.776,106.442,75.276
+fixed,nice,2,TU703,0.65,MOYEN,IA,18,3,G15,1,0.135,11.065,31.167,75.211,115.615,84.448
+fixed,nice,3,TU701,0.87,CRITIQUE,IA,19,2,G18,1,101.408,107.731,127.818,147.964,175.622,47.804

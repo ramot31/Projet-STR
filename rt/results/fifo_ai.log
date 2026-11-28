@@ -1,0 +1,40 @@
+rt_engine : scenario scenarios/multi_flights.txt (3 evenements, charge x1), politique IA
+SCHED_FIFO (priorites strictes), tous les threads sur le CPU 0
+
+[    +0.045 ms] T0  recu FLIGHT_DELAY      flight=TU702,delay=5 -> file
+[    +0.064 ms] T0  recu FLIGHT_DELAY      flight=TU703,delay=15 -> file
+[    +0.073 ms] T0  recu FLIGHT_DELAY      flight=TU701,delay=20 -> file
+[    +0.183 ms] T1  detecte retard TU702 : 5 min, temps restant 55 min, 12 correspondances -> declenche T3
+[    +0.198 ms] T1  detecte retard TU703 : 15 min, temps restant 40 min, 20 correspondances -> declenche T3
+[    +0.199 ms] T1  detecte retard TU701 : 20 min, temps restant 35 min, 35 correspondances -> declenche T3
+[    +4.216 ms] T3  risque TU702 = 0.20 (FAIBLE, source IA)
+[    +8.265 ms] T3  risque TU703 = 0.65 (MOYEN, source IA)
+[   +12.283 ms] T3  risque TU701 = 0.87 (CRITIQUE, source IA)
+[   +24.303 ms] T4  DECISION [priorite IA] TU701(0.87, FIFO 18) > TU703(0.65, FIFO 16) > TU702(0.20, FIFO 12)
+[   +25.192 ms] T4  lot de 3 vol(s) ordonne et lance : R = 20.974 ms (D = 100 ms)
+[   +65.628 ms] VOL TU701 [FIFO] porte G12, 1/1 bus, passagers notifies : reponse 65.6 ms depuis l'evenement
+[  +105.872 ms] VOL TU703 [FIFO] porte G15, 1/1 bus, passagers notifies : reponse 105.9 ms depuis l'evenement
+[  +146.047 ms] VOL TU702 [FIFO] porte G18, 1/1 bus, passagers notifies : reponse 146.0 ms depuis l'evenement
+
+================ RESULTATS (politique IA : base + min(3, risque x 3)) ================
+Ordonnancement : SCHED_FIFO (priorites strictes), tous les threads sur le CPU 0
+
+tache   type        T(ms) D(ms) prio     critic.        N     Cmoy     Cmax     Rmoy     Rmax     Jmoy     Jmax fautes
+T0      sporadique      -    10 FIFO 95  haute          3    0.008    0.018    0.064    0.075    0.055    0.071      0
+ALR     sporadique      -    50 FIFO 90  critique       0    0.000    0.000    0.000    0.000    0.000    0.000      0
+T1      periodique    100   100 FIFO 82  haute          8    0.005    0.022    0.051    0.200    0.046    0.178      0
+T4      sporadique      -   100 FIFO 80  haute          1    0.939    0.939   20.974   20.974    0.035    0.035      0
+T3      sporadique      -   200 FIFO 70  haute          3    4.008    4.009    8.061   12.082    4.053    8.073      0
+T2      periodique    500   500 FIFO 60  moyenne        2    0.002    0.002    6.222   12.399    6.220   12.395      0
+BG      aperiodique     -     - nice 19  basse        164    5.004    5.189    5.828  126.944    0.000    0.000      0
+(temps en ms ; C = temps CPU, R = temps de reponse depuis la liberation, J = jitter d'activation)
+
+#   vol       risque niveau    source prio     porte bus    detect   risque  decision   reponse apres decis.
+1   TU701     0.87   CRITIQUE  IA     FIFO 18  G12   1         0.2     12.3      24.3      65.6         41.3
+2   TU703     0.65   MOYEN     IA     FIFO 16  G15   1         0.2      8.3      24.3     105.9         81.6
+3   TU702     0.20   FAIBLE    IA     FIFO 12  G18   1         0.2      4.2      24.3     146.0        121.8
+(ms depuis l'evenement initial ; reponse = evenement -> passagers notifies ;
+ apres decis. = decision de T4 -> passagers notifies : effet de la priorite seule)
+
+Analyse de fond (aperiodique, priorite la plus basse) : 164 tranches de 5 ms executees
+CSV : rt/results/fifo_ai_tasks.csv, rt/results/fifo_ai_flights.csv

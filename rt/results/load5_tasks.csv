@@ -1,0 +1,8 @@
+policy,task,role,type,T_ms,D_ms,fifo_prio,nice,criticity,n,c_avg_ms,c_max_ms,r_avg_ms,r_max_ms,jitter_avg_ms,jitter_max_ms,misses
+ai,T0,acquisition des evenements,sporadique,0,10,95,0,haute,4,0.014,0.032,0.182,0.206,0.167,0.197,0
+ai,ALR,alerte porte indisponible,sporadique,0,50,90,0,critique,0,0.000,0.000,0.000,0.000,0.000,0.000,0
+ai,T1,surveillance des vols,periodique,100,100,82,0,haute,16,0.005,0.043,0.074,0.375,0.068,0.332,0
+ai,T4,decision et ressources,sporadique,0,100,80,0,haute,4,1.992,2.469,22.080,22.655,0.046,0.085,0
+ai,T3,prediction IA,sporadique,0,200,70,0,haute,20,4.013,4.053,46.434,89.174,41.996,85.144,0
+ai,T2,surveillance des files,periodique,500,500,60,1,moyenne,4,0.001,0.002,22.486,89.581,22.484,89.578,0
+ai,BG,analyse historique (fond),aperiodique,0,0,0,19,basse,165,5.075,11.030,10.655,922.866,0.000,0.000,0

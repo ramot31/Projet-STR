@@ -1,0 +1,40 @@
+rt_engine : scenario scenarios/multi_flights.txt (3 evenements, charge x1), politique IA
+SCHED_OTHER + nice (repli : droits insuffisants, lancer avec sudo), tous les threads sur le CPU 0
+
+[    +0.108 ms] T0  recu FLIGHT_DELAY      flight=TU702,delay=5 -> file
+[    +0.148 ms] T0  recu FLIGHT_DELAY      flight=TU703,delay=15 -> file
+[    +0.158 ms] T0  recu FLIGHT_DELAY      flight=TU701,delay=20 -> file
+[    +0.295 ms] T1  detecte retard TU702 : 5 min, temps restant 55 min, 12 correspondances -> declenche T3
+[    +0.322 ms] T1  detecte retard TU703 : 15 min, temps restant 40 min, 20 correspondances -> declenche T3
+[    +0.332 ms] T1  detecte retard TU701 : 20 min, temps restant 35 min, 35 correspondances -> declenche T3
+[    +6.325 ms] T3  risque TU702 = 0.20 (FAIBLE, source IA)
+[   +10.389 ms] T3  risque TU703 = 0.65 (MOYEN, source IA)
+[   +14.412 ms] T3  risque TU701 = 0.87 (CRITIQUE, source IA)
+[   +30.212 ms] T4  DECISION [priorite IA] TU701(0.87, nice 3) > TU703(0.65, nice 5) > TU702(0.20, nice 9)
+[   +30.554 ms] T4  lot de 3 vol(s) ordonne et lance : R = 24.229 ms (D = 100 ms)
+[  +107.072 ms] VOL TU701 [nice] porte G12, 1/1 bus, passagers notifies : reponse 107.1 ms depuis l'evenement
+[  +129.066 ms] VOL TU703 [nice] porte G15, 1/1 bus, passagers notifies : reponse 129.1 ms depuis l'evenement
+[  +155.135 ms] VOL TU702 [nice] porte G18, 1/1 bus, passagers notifies : reponse 155.1 ms depuis l'evenement
+
+================ RESULTATS (politique IA : base + min(3, risque x 3)) ================
+Ordonnancement : SCHED_OTHER + nice (repli : droits insuffisants, lancer avec sudo), tous les threads sur le CPU 0
+
+tache   type        T(ms) D(ms) prio     critic.        N     Cmoy     Cmax     Rmoy     Rmax     Jmoy     Jmax fautes
+T0      sporadique      -    10 nice 0   haute          3    0.015    0.040    0.148    0.159    0.132    0.156      0
+ALR     sporadique      -    50 nice 0   critique       0    0.000    0.000    0.000    0.000    0.000    0.000      0
+T1      periodique    100   100 nice 0   haute          9    0.006    0.033    0.143    0.333    0.136    0.290      0
+T4      sporadique      -   100 nice 0   haute          1    0.392    0.392   24.229   24.229    3.779    3.779      0
+T3      sporadique      -   200 nice 0   haute          3    4.008    4.011   10.058   14.077    5.384   10.066      0
+T2      periodique    500   500 nice 1   moyenne        2    0.003    0.004    1.657    3.146    1.654    3.144      0
+BG      aperiodique     -     - nice 19  basse        172    5.052   10.372    5.834  126.111    0.000    0.000      0
+(temps en ms ; C = temps CPU, R = temps de reponse depuis la liberation, J = jitter d'activation)
+
+#   vol       risque niveau    source prio     porte bus    detect   risque  decision   reponse apres decis.
+1   TU701     0.87   CRITIQUE  IA     nice 3   G12   1         0.3     14.4      30.2     107.1         76.9
+2   TU703     0.65   MOYEN     IA     nice 5   G15   1         0.3     10.4      30.2     129.1         98.9
+3   TU702     0.20   FAIBLE    IA     nice 9   G18   1         0.3      6.3      30.2     155.1        124.9
+(ms depuis l'evenement initial ; reponse = evenement -> passagers notifies ;
+ apres decis. = decision de T4 -> passagers notifies : effet de la priorite seule)
+
+Analyse de fond (aperiodique, priorite la plus basse) : 172 tranches de 5 ms executees
+CSV : rt/results/nice_ai_tasks.csv, rt/results/nice_ai_flights.csv

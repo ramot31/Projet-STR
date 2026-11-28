@@ -1,0 +1,2 @@
+policy,sched,order,flight,risk,level,source,fifo_prio,nice,gate,bus,detect_ms,risk_ms,dispatch_ms,gate_ms,notify_ms,after_decision_ms
+ai,fifo,1,TU701,0.87,CRITIQUE,IA,18,3,G15,1,0.147,4.170,24.222,44.525,64.530,40.309

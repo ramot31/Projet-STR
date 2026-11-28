@@ -1,0 +1,131 @@
+rt_engine : scenario scenarios/surcharge.txt (4 evenements, charge x5), politique IA
+SCHED_FIFO (priorites strictes), tous les threads sur le CPU 0
+
+[    +0.142 ms] T0  recu FLIGHT_DELAY      flight=TU701,delay=20 -> file
+[    +0.150 ms] T0  recu FLIGHT_DELAY      flight=TU701x2,delay=20 -> file
+[    +0.152 ms] T0  recu FLIGHT_DELAY      flight=TU701x3,delay=20 -> file
+[    +0.153 ms] T0  recu FLIGHT_DELAY      flight=TU701x4,delay=20 -> file
+[    +0.154 ms] T0  recu FLIGHT_DELAY      flight=TU701x5,delay=20 -> file
+[    +0.170 ms] T0  recu FLIGHT_DELAY      flight=TU702,delay=5 -> file
+[    +0.171 ms] T0  recu FLIGHT_DELAY      flight=TU702x2,delay=5 -> file
+[    +0.172 ms] T0  recu FLIGHT_DELAY      flight=TU702x3,delay=5 -> file
+[    +0.174 ms] T0  recu FLIGHT_DELAY      flight=TU702x4,delay=5 -> file
+[    +0.175 ms] T0  recu FLIGHT_DELAY      flight=TU702x5,delay=5 -> file
+[    +0.185 ms] T0  recu FLIGHT_DELAY      flight=TU703,delay=15 -> file
+[    +0.186 ms] T0  recu FLIGHT_DELAY      flight=TU703x2,delay=15 -> file
+[    +0.187 ms] T0  recu FLIGHT_DELAY      flight=TU703x3,delay=15 -> file
+[    +0.188 ms] T0  recu FLIGHT_DELAY      flight=TU703x4,delay=15 -> file
+[    +0.190 ms] T0  recu FLIGHT_DELAY      flight=TU703x5,delay=15 -> file
+[    +0.199 ms] T0  recu FLIGHT_DELAY      flight=TU704,delay=10 -> file
+[    +0.200 ms] T0  recu FLIGHT_DELAY      flight=TU704x2,delay=10 -> file
+[    +0.201 ms] T0  recu FLIGHT_DELAY      flight=TU704x3,delay=10 -> file
+[    +0.203 ms] T0  recu FLIGHT_DELAY      flight=TU704x4,delay=10 -> file
+[    +0.204 ms] T0  recu FLIGHT_DELAY      flight=TU704x5,delay=10 -> file
+[    +0.337 ms] T1  detecte retard TU701 : 20 min, temps restant 35 min, 35 correspondances -> declenche T3
+[    +0.351 ms] T1  detecte retard TU701x2 : 20 min, temps restant 35 min, 35 correspondances -> declenche T3
+[    +0.352 ms] T1  detecte retard TU701x3 : 20 min, temps restant 35 min, 35 correspondances -> declenche T3
+[    +0.354 ms] T1  detecte retard TU701x4 : 20 min, temps restant 35 min, 35 correspondances -> declenche T3
+[    +0.355 ms] T1  detecte retard TU701x5 : 20 min, temps restant 35 min, 35 correspondances -> declenche T3
+[    +0.356 ms] T1  detecte retard TU702 : 5 min, temps restant 55 min, 12 correspondances -> declenche T3
+[    +0.358 ms] T1  detecte retard TU702x2 : 5 min, temps restant 55 min, 12 correspondances -> declenche T3
+[    +0.359 ms] T1  detecte retard TU702x3 : 5 min, temps restant 55 min, 12 correspondances -> declenche T3
+[    +0.360 ms] T1  detecte retard TU702x4 : 5 min, temps restant 55 min, 12 correspondances -> declenche T3
+[    +0.361 ms] T1  detecte retard TU702x5 : 5 min, temps restant 55 min, 12 correspondances -> declenche T3
+[    +0.363 ms] T1  detecte retard TU703 : 15 min, temps restant 40 min, 20 correspondances -> declenche T3
+[    +0.364 ms] T1  detecte retard TU703x2 : 15 min, temps restant 40 min, 20 correspondances -> declenche T3
+[    +0.365 ms] T1  detecte retard TU703x3 : 15 min, temps restant 40 min, 20 correspondances -> declenche T3
+[    +0.367 ms] T1  detecte retard TU703x4 : 15 min, temps restant 40 min, 20 correspondances -> declenche T3
+[    +0.368 ms] T1  detecte retard TU703x5 : 15 min, temps restant 40 min, 20 correspondances -> declenche T3
+[    +0.369 ms] T1  detecte retard TU704 : 10 min, temps restant 40 min, 8 correspondances -> declenche T3
+[    +0.370 ms] T1  detecte retard TU704x2 : 10 min, temps restant 40 min, 8 correspondances -> declenche T3
+[    +0.372 ms] T1  detecte retard TU704x3 : 10 min, temps restant 40 min, 8 correspondances -> declenche T3
+[    +0.373 ms] T1  detecte retard TU704x4 : 10 min, temps restant 40 min, 8 correspondances -> declenche T3
+[    +0.374 ms] T1  detecte retard TU704x5 : 10 min, temps restant 40 min, 8 correspondances -> declenche T3
+[    +4.390 ms] T3  risque TU701 = 0.87 (CRITIQUE, source IA)
+[    +8.496 ms] T3  risque TU701x2 = 0.87 (CRITIQUE, source IA)
+[   +12.517 ms] T3  risque TU701x3 = 0.87 (CRITIQUE, source IA)
+[   +16.536 ms] T3  risque TU701x4 = 0.87 (CRITIQUE, source IA)
+[   +20.560 ms] T3  risque TU701x5 = 0.87 (CRITIQUE, source IA)
+[   +24.571 ms] T4  DECISION [priorite IA] TU701(0.87, FIFO 18) > TU701x2(0.87, FIFO 18) > TU701x3(0.87, FIFO 18) > TU701x4(0.87, FIFO 18) > TU701x5(0.87, FIFO 18)
+[   +26.281 ms] T4  lot de 5 vol(s) ordonne et lance : R = 21.890 ms (D = 100 ms)
+[   +27.047 ms] T3  risque TU702 = 0.20 (FAIBLE, source IA)
+[   +31.090 ms] T3  risque TU702x2 = 0.20 (FAIBLE, source IA)
+[   +35.107 ms] T3  risque TU702x3 = 0.20 (FAIBLE, source IA)
+[   +39.129 ms] T3  risque TU702x4 = 0.20 (FAIBLE, source IA)
+[   +43.148 ms] T3  risque TU702x5 = 0.20 (FAIBLE, source IA)
+[   +47.128 ms] T4  DECISION [priorite IA] TU702(0.20, FIFO 12) > TU702x2(0.20, FIFO 12) > TU702x3(0.20, FIFO 12) > TU702x4(0.20, FIFO 12) > TU702x5(0.20, FIFO 12)
+[   +49.129 ms] T4  lot de 5 vol(s) ordonne et lance : R = 22.078 ms (D = 100 ms)
+[   +50.020 ms] T3  risque TU703 = 0.65 (MOYEN, source IA)
+[   +54.072 ms] T3  risque TU703x2 = 0.65 (MOYEN, source IA)
+[   +58.105 ms] T3  risque TU703x3 = 0.65 (MOYEN, source IA)
+[   +62.136 ms] T3  risque TU703x4 = 0.65 (MOYEN, source IA)
+[   +66.161 ms] T3  risque TU703x5 = 0.65 (MOYEN, source IA)
+[   +70.408 ms] T4  DECISION [priorite IA] TU703(0.65, FIFO 16) > TU703x2(0.65, FIFO 16) > TU703x3(0.65, FIFO 16) > TU703x4(0.65, FIFO 16) > TU703x5(0.65, FIFO 16)
+[   +72.677 ms] T4  lot de 5 vol(s) ordonne et lance : R = 22.655 ms (D = 100 ms)
+[   +73.408 ms] T3  risque TU704 = 0.50 (MOYEN, source IA)
+[   +77.464 ms] T3  risque TU704x2 = 0.50 (MOYEN, source IA)
+[   +81.488 ms] T3  risque TU704x3 = 0.50 (MOYEN, source IA)
+[   +85.509 ms] T3  risque TU704x4 = 0.50 (MOYEN, source IA)
+[   +89.550 ms] T3  risque TU704x5 = 0.50 (MOYEN, source IA)
+[   +93.490 ms] T4  DECISION [priorite IA] TU704(0.50, FIFO 15) > TU704x2(0.50, FIFO 15) > TU704x3(0.50, FIFO 15) > TU704x4(0.50, FIFO 15) > TU704x5(0.50, FIFO 15)
+[   +95.105 ms] T4  lot de 5 vol(s) ordonne et lance : R = 21.697 ms (D = 100 ms)
+[  +132.025 ms] VOL TU701x5 [FIFO] porte G12, 1/1 bus, passagers notifies : reponse 132.0 ms depuis l'evenement
+[  +172.588 ms] VOL TU701x4 [FIFO] porte G15, 1/1 bus, passagers notifies : reponse 172.6 ms depuis l'evenement
+[  +212.839 ms] VOL TU701x3 [FIFO] porte G18, 1/1 bus, passagers notifies : reponse 212.8 ms depuis l'evenement
+[  +309.646 ms] VOL TU701x2 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 309.6 ms depuis l'evenement
+[  +334.080 ms] VOL TU701 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 334.1 ms depuis l'evenement
+[  +430.786 ms] VOL TU703x5 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 430.8 ms depuis l'evenement
+[  +451.058 ms] VOL TU703x4 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 451.1 ms depuis l'evenement
+[  +474.009 ms] VOL TU703x3 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 474.0 ms depuis l'evenement
+[  +494.236 ms] VOL TU703x2 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 494.2 ms depuis l'evenement
+[  +514.420 ms] VOL TU703 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 514.4 ms depuis l'evenement
+[  +635.954 ms] VOL TU704x5 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 636.0 ms depuis l'evenement
+[  +656.210 ms] VOL TU704x4 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 656.2 ms depuis l'evenement
+[  +676.373 ms] VOL TU704x3 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 676.4 ms depuis l'evenement
+[  +696.646 ms] VOL TU704x2 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 696.6 ms depuis l'evenement
+[  +716.830 ms] VOL TU704 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 716.8 ms depuis l'evenement
+[  +837.102 ms] VOL TU702x5 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 837.1 ms depuis l'evenement
+[  +857.223 ms] VOL TU702x4 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 857.2 ms depuis l'evenement
+[  +877.371 ms] VOL TU702x3 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 877.4 ms depuis l'evenement
+[  +897.505 ms] VOL TU702x2 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 897.5 ms depuis l'evenement
+[  +917.621 ms] VOL TU702 [FIFO] porte ---, 1/1 bus, passagers notifies : reponse 917.6 ms depuis l'evenement
+
+================ RESULTATS (politique IA : base + min(3, risque x 3)) ================
+Ordonnancement : SCHED_FIFO (priorites strictes), tous les threads sur le CPU 0
+
+tache   type        T(ms) D(ms) prio     critic.        N     Cmoy     Cmax     Rmoy     Rmax     Jmoy     Jmax fautes
+T0      sporadique      -    10 FIFO 95  haute          4    0.014    0.032    0.182    0.206    0.167    0.197      0
+ALR     sporadique      -    50 FIFO 90  critique       0    0.000    0.000    0.000    0.000    0.000    0.000      0
+T1      periodique    100   100 FIFO 82  haute         16    0.005    0.043    0.074    0.375    0.068    0.332      0
+T4      sporadique      -   100 FIFO 80  haute          4    1.992    2.469   22.080   22.655    0.046    0.085      0
+T3      sporadique      -   200 FIFO 70  haute         20    4.013    4.053   46.434   89.174   41.996   85.144      0
+T2      periodique    500   500 FIFO 60  moyenne        4    0.001    0.002   22.486   89.581   22.484   89.578      0
+BG      aperiodique     -     - nice 19  basse        165    5.075   11.030   10.655  922.866    0.000    0.000      0
+(temps en ms ; C = temps CPU, R = temps de reponse depuis la liberation, J = jitter d'activation)
+
+#   vol       risque niveau    source prio     porte bus    detect   risque  decision   reponse apres decis.
+1   TU701     0.87   CRITIQUE  IA     FIFO 18  ---   1         0.3      4.4      24.6     334.1        309.5
+2   TU701x2   0.87   CRITIQUE  IA     FIFO 18  ---   1         0.4      8.5      24.6     309.6        285.1
+3   TU701x3   0.87   CRITIQUE  IA     FIFO 18  G18   1         0.4     12.5      24.6     212.8        188.3
+4   TU701x4   0.87   CRITIQUE  IA     FIFO 18  G15   1         0.4     16.5      24.6     172.6        148.0
+5   TU701x5   0.87   CRITIQUE  IA     FIFO 18  G12   1         0.4     20.6      24.6     132.0        107.5
+6   TU702     0.20   FAIBLE    IA     FIFO 12  ---   1         0.4     27.0      47.1     917.6        870.5
+7   TU702x2   0.20   FAIBLE    IA     FIFO 12  ---   1         0.4     31.1      47.1     897.5        850.4
+8   TU702x3   0.20   FAIBLE    IA     FIFO 12  ---   1         0.4     35.1      47.1     877.4        830.3
+9   TU702x4   0.20   FAIBLE    IA     FIFO 12  ---   1         0.4     39.1      47.1     857.2        810.1
+10  TU702x5   0.20   FAIBLE    IA     FIFO 12  ---   1         0.4     43.1      47.1     837.1        790.0
+11  TU703     0.65   MOYEN     IA     FIFO 16  ---   1         0.4     50.0      70.3     514.4        444.1
+12  TU703x2   0.65   MOYEN     IA     FIFO 16  ---   1         0.4     54.1      70.3     494.2        423.9
+13  TU703x3   0.65   MOYEN     IA     FIFO 16  ---   1         0.4     58.1      70.3     474.0        403.7
+14  TU703x4   0.65   MOYEN     IA     FIFO 16  ---   1         0.4     62.1      70.3     451.1        380.7
+15  TU703x5   0.65   MOYEN     IA     FIFO 16  ---   1         0.4     66.2      70.3     430.8        360.4
+16  TU704     0.50   MOYEN     IA     FIFO 15  ---   1         0.4     73.4      93.5     716.8        623.3
+17  TU704x2   0.50   MOYEN     IA     FIFO 15  ---   1         0.4     77.5      93.5     696.6        603.2
+18  TU704x3   0.50   MOYEN     IA     FIFO 15  ---   1         0.4     81.5      93.5     676.4        582.9
+19  TU704x4   0.50   MOYEN     IA     FIFO 15  ---   1         0.4     85.5      93.5     656.2        562.7
+20  TU704x5   0.50   MOYEN     IA     FIFO 15  ---   1         0.4     89.5      93.5     636.0        542.5
+(ms depuis l'evenement initial ; reponse = evenement -> passagers notifies ;
+ apres decis. = decision de T4 -> passagers notifies : effet de la priorite seule)
+
+Analyse de fond (aperiodique, priorite la plus basse) : 165 tranches de 5 ms executees
+CSV : rt/results/load5_tasks.csv, rt/results/load5_flights.csv
